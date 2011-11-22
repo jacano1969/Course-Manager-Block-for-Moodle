@@ -1,0 +1,21 @@
+
+
+------------------------------------------------
+
+Moodle Course Manager Block
+
+
+-------------------------------------------------
+
+
+To install this block, add the cmanager folder
+to your moodle/blocks folder.
+
+Once this is done, you then need to run the config
+installer script which can be found at:
+
+/blocks/cmanager/installer_build_config/build.php
+
+And then your ready to go!
+
+All questions and comments welcome at: kylegoslin@gmail.com
