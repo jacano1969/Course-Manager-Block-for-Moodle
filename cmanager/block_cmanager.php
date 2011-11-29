@@ -14,6 +14,17 @@ function get_content() {
     if ($this->content !== NULL) {
       return $this->content;
     }
+    global $CFG;
+	
+    // Check to see if the config vars has been run
+    // if not then redirect to the setup
+    $configHasRun =  get_record('cmanager_config', 'varname', 'confighasrun');
+ 
+  
+   if($configHasRun == '' || $configHasRun == null){
+   	echo "<script>window.location ='blocks/cmanager/installer_build_config/build.php'; </script>";
+   }
+ 
  
     $htmlContent = getHTMLContent();
 
@@ -33,8 +44,10 @@ function getHTMLContent(){
 global $USER;
 
 
-if ($admins = get_admins()) { 
-$loginIsValid = False;
+if ($admins = get_admins()) {
+	 
+	$loginIsValid = False;
+	
 	foreach ($admins as $admin) {
 		
 		

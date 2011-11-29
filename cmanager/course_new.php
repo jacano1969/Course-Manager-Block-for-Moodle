@@ -42,7 +42,7 @@ class courserequest_form extends moodleform {
         $currentRecord =  get_record('cmanager_records', 'id', $currentSess);
 
 
-        $mform =& $this->_form; // Don't forget the underscore! 
+        $mform =& $this->_form; 
  
 
         $mform->addElement('header', 'mainheader', 'Module Request Facility');
@@ -268,15 +268,13 @@ class courserequest_form extends moodleform {
 	    $newrec->c1 = $_POST['f1'];
 	}
 	if(isset($_POST['f2'])){
-    $newrec->c2 = $_POST['f2'];
+    	$newrec->c2 = $_POST['f2'];
 	}
 	if(isset($_POST['f3'])){
-		
-    $newrec->c3 = $_POST['f3'];
+		$newrec->c3 = $_POST['f3'];
 	}
 	if(isset($_POST['f4'])){
-
-    $newrec->c4 = $_POST['f4'];
+		$newrec->c4 = $_POST['f4'];
 	}
 	if(isset($_POST['f5'])){
     	$newrec->c5 = $_POST['f5'];
@@ -291,25 +289,25 @@ class courserequest_form extends moodleform {
 	    $newrec->c8 = $_POST['f8'];
 	}
 	if(isset($_POST['f9'])){
-  	  $newrec->c9 = $_POST['f9'];
+  	 	 $newrec->c9 = $_POST['f9'];
 	}
 	if(isset($_POST['f10'])){
-	    $newrec->c10 = $_POST['f10'];
+	     $newrec->c10 = $_POST['f10'];
 	}
 	if(isset($_POST['f11'])){
-  	  $newrec->c11 = $_POST['f11'];
+  	 	 $newrec->c11 = $_POST['f11'];
 	}
 	if(isset($_POST['f12'])){
-	    $newrec->c12 = $_POST['f12'];
+	   	 $newrec->c12 = $_POST['f12'];
 	}
 	if(isset($_POST['f13'])){
- 	   $newrec->c13 = $_POST['f13'];
+ 	  	 $newrec->c13 = $_POST['f13'];
 	}
 	if(isset($_POST['f14'])){
-  	  $newrec->c14 = $_POST['f14'];
+  	 	 $newrec->c14 = $_POST['f14'];
 	}
 	if(isset($_POST['f15'])){
-  	  $newrec->c15 = $_POST['f15'];
+  		  $newrec->c15 = $_POST['f15'];
 	}
 	
     // Tag the module as new  
