@@ -149,7 +149,7 @@ echo '<center><h2>Course Manager Configuration Builder</h2>';
 		
 		$newrec = new stdClass();
 		$newrec->varname = 'current_active_form_id';
-		$newrec->value = 
+		$newrec->value = $activeFormId;
 		insert_record('cmanager_config', $newrec);
 		
 		
