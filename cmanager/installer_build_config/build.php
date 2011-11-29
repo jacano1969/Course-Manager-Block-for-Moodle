@@ -85,7 +85,7 @@ echo 'Building Config Variables...';
 		
 		$newrec = new stdClass();
 		$newrec->varname = 'page1_fieldname1';
-		$newrec->value = '';
+		$newrec->value = 'Full Name';
 		insert_record('cmanager_config', $newrec);
 		
 		$newrec = new stdClass();
@@ -95,7 +95,7 @@ echo 'Building Config Variables...';
 		
 		$newrec = new stdClass();
 		$newrec->varname = 'page1_fieldname2';
-		$newrec->value = '';
+		$newrec->value = 'Short Name';
 		insert_record('cmanager_config', $newrec);
 		
 		
@@ -137,10 +137,35 @@ echo 'Building Config Variables...';
 		insert_record('cmanager_config', $newrec);
 		
 		
+		
+		$activeFormId = mysql_insert_id(); // Hack needs to be working for all database types.
+		
 		$newrec = new stdClass();
 		$newrec->varname = 'current_active_form_id';
-		$newrec->value = mysql_insert_id(); // Hack needs to be working for all database types.
+		$newrec->value = 
 		insert_record('cmanager_config', $newrec);
+		
+		
+		
+		// Create a default form
+		$newrec = new stdClass();
+		$newrec->type = 'textfield';
+		$newrec->lefttext = 'Example Field';
+		$newrec->position = 1;
+		$newrec->formid = $activeFormId;
+		
+		$newrec = new stdClass();
+		$newrec->type = 'textarea';
+		$newrec->lefttext = 'Another Field';
+		$newrec->position = 2;
+		$newrec->formid = $activeFormId;
+		
+		
+		$newrec = new stdClass();
+		$newrec->type = 'textarea';
+		$newrec->lefttext = 'Your field';
+		$newrec->position = 3;
+		$newrec->formid = $activeFormId;
 		
 		
 		echo '<p></p>';

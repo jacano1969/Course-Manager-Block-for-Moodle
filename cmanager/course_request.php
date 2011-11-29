@@ -96,7 +96,7 @@ left:200px;
 		
 
 	// Page description text
-	$mform->addElement('html', '<p></p>&nbsp;&nbsp;&nbsp;Please complete this form as accurately as possible. <br>&nbsp;&nbsp;&nbsp;Academics are asked to refer to <a href="http://courses.itb.ie" target="_blank">courses.itb.ie</a> for accurate module codes and module titles.<p></p>&nbsp;');
+	$mform->addElement('html', '<p></p>&nbsp;&nbsp;&nbsp;'.get_string('courserequestline1','block_cmanager'));
 
 
 	$mform->addElement('html', '<p></p><center><div style="width:745px; text-align:left"><b>' . get_string('step1text','block_cmanager'). '</b></div></center><p></p>');

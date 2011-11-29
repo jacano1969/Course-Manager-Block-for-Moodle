@@ -18,7 +18,7 @@ $string['currentrequests'] = 'Current Requests';
 $string['archivedrequests'] = 'Archived Requests';
 $string['configure'] = 'Configure CManager';
 
-
+$string['courserequestline1'] = 'Please refer to course documentation for accurate course naming information';
 $string['courserequestadmin'] = 'Course Request Admin';
 
 $string['approve'] = 'Approve';

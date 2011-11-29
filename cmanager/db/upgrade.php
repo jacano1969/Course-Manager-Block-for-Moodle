@@ -23,6 +23,8 @@ function xmldb_block_course_list_upgrade($oldversion=0) {
 
     $result = true;
 
+
+
 /*
    if ($result && $oldversion < 2011041802) {
 
