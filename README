@@ -1,8 +1,25 @@
-
-
-
 Moodle Course Manager Block
+--------------------------------------------------------------
+Please note that this block is currently under development
+all bugs and security issues should be logged on the GitHub
+issue tracker, or by emailing kylegoslin@gmail.com.
 
 
-Please note that this block is currently under development, all bugs and
-security issues should be sent to kylegoslin@gmail.com.
+Installation Requirements
+Moodle: Version 1.9
+
+Work is currently underway to produce a Moodle 2.0 compliant
+version.
+
+---------------------------------------------------------------
+
+
+For install details see the "documentation" folder.
+
+
+
+
+---------------------------------------------------------------
+
+
+
