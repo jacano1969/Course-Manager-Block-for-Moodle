@@ -9,6 +9,7 @@
  --------------------------------------------------------- */
 
 ?><head>
+	<title>Course Manager</title>
   <link rel="stylesheet" type="text/css" href="css/main.css" />
 
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -117,14 +118,7 @@ if(isset($_POST['naming']) && isset($_POST['key']) && isset($_POST['course_date'
   	     update_record('cmanager_config', $newrec); 
 	
 		//retrieve updated date and convert to timestamp
-		
 		$courseTimeStamp = $_POST['course_date'];
-		/*	
-		echo "<script>alert('From Form - DAY: $courseTimeStamp[d]');</script>";
-		echo "<script>alert('From Form - MONTH: $courseTimeStamp[M]');</script>";
-		echo "<script>alert('From Form - YEAR: $courseTimeStamp[Y]');</script>";
-		*/
-		
 		$courseTimeStamp = mktime (0, 0, 0, $courseTimeStamp[M], $courseTimeStamp[d], $courseTimeStamp[Y]);
 	
 		//add the new date to the config
@@ -144,7 +138,7 @@ if(isset($_POST['naming']) && isset($_POST['key']) && isset($_POST['course_date'
 	    $newrec->varname = 'emailSender';
 	    $newrec->value = $_POST['defaultmail'];
   	    update_record('cmanager_config', $newrec); 
-
+  	    
 		
 }
 
@@ -652,19 +646,16 @@ class courserequest_form extends moodleform {
 		global $USER;
 		global $CFG;
 		
-		// Add an email address
-		
-        	$post_email = $_POST['newemail'];
+			// Add an email address
+			$post_email = $_POST['newemail'];
 			
-	        
-	        if(validateEmail($post_email)){
+	        if($post_email != '' && validateEmail($post_email)){
 	        	$newrec = new stdClass();
 				$newrec->varname = 'admin_email';
 				$newrec->value = $post_email;
 				insert_record('cmanager_config', $newrec);
 	            	
-			
-	        }
+			}
 	        
 	        echo "<script>window.location='cmanager_config.php';</script>";
 	        die;

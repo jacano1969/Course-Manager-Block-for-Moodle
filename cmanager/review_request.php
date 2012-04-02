@@ -12,24 +12,16 @@ require_once("../../config.php");
 global $CFG;
 $formPath = "$CFG->libdir/formslib.php";
 require_once($formPath);
-
 require_once('generate_summary.php');
-  require_login();
+require_login();
   
   
 ?>
-
+<title>Course Manager</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <SCRIPT LANGUAGE="JavaScript" SRC="http://code.jquery.com/jquery-1.6.min.js">
 </SCRIPT>
 <?php
-
-/* -------------------------*/
-//ini_set('display_errors', 1); 
-//error_reporting(E_ALL);
-/* -------------------------*/
-
-
 
 
 if(isset($_GET['id'])){
@@ -47,8 +39,8 @@ class courserequest_form extends moodleform {
     function definition() {
         global $CFG;
         global $currentSess;
-	global $mid;
-	global $USER;
+		global $mid;
+		global $USER;
 
 
     
@@ -61,7 +53,6 @@ class courserequest_form extends moodleform {
         $mform =& $this->_form; // Don't forget the underscore! 
  
         $mform->addElement('header', 'mainheader', get_string('requestReview_Summary','block_cmanager'));
-
         $mform->addElement('html', '<p></p><center>'.get_string('requestReview_intro1','block_cmanager').'<br>'.get_string('requestReview_intro2','block_cmanager').'</center><p></p>&nbsp;<p></p>&nbsp;');
         
         
@@ -98,7 +89,7 @@ class courserequest_form extends moodleform {
 
 		<tr>
 			<td width="150px">
-				<b>'.$field1title.'</b>
+				<b>'.$field1title.':</b>
 			</td>
 			<td>
 				'. $rec->modcode . '
@@ -109,7 +100,7 @@ class courserequest_form extends moodleform {
 		$outputHTML .= '
 		<tr>
 			<td width="150px">
-				<b>'.$field2title.'</b>
+				<b>'.$field2title.':</b>
 			</td>
 			<td>
 				'. $rec->modname . '
@@ -121,7 +112,7 @@ class courserequest_form extends moodleform {
 			$outputHTML .= '
 					<tr>
 					<td width="150px">
-						<b> '. get_string('configure_EnrolmentKey','block_cmanager') .' </b>
+						<b> '. get_string('configure_EnrolmentKey','block_cmanager') .': </b>
 					</td>
 					<td>
 						'. $rec->modkey . '

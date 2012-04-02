@@ -12,7 +12,7 @@
  */
 
  function generateSummary($recordId, $formId){
-		
+	
 	global $CFG;
 	
 	$generatedHTML = '';
@@ -25,13 +25,13 @@
 	
 	
 	$counter = 1;
-	      
+	   
     foreach($modRecords as $record){
     	
 		$fieldIdName = 'c' . $counter;
 		$generatedHTML .= '<tr>';
 		$generatedHTML .= '  <td width="150px">';
-		$generatedHTML .= '  <b>' . $record['lefttext'] . '</b>';
+		$generatedHTML .= '  <b>' . $record['lefttext'] . ':</b>';
 		$generatedHTML .= ' </td>';
 		$generatedHTML .= '	<td>';
 		$generatedHTML .= get_field('cmanager_records', $fieldIdName, 'id', $recordId);

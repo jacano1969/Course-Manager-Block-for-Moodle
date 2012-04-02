@@ -1,8 +1,4 @@
 <?php
-//ini_set('display_errors', 1); 
-//error_reporting(E_ALL);
-
-
 require_once("../../../config.php");
 global $CFG;
  if(isset($_GET['del'])){
@@ -15,7 +11,7 @@ global $CFG;
  
  
 ?>
-
+<title>Course Manager</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
@@ -56,7 +52,7 @@ global $CFG;
 	
 	function addNewItem(){
 	
-
+	jQuery.ajaxSetup({async:false});
      var value = document.getElementById('newitem').value;
      $.post("ajax_functions.php", { valuetoadd: value, type: 'add'},
    

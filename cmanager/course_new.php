@@ -14,7 +14,7 @@ $formPath = "$CFG->libdir/formslib.php";
 require_once($formPath);
 
 ?>
-
+<title>Course Manager</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <SCRIPT LANGUAGE="JavaScript" SRC="http://code.jquery.com/jquery-1.6.min.js">
 </SCRIPT>
@@ -22,8 +22,10 @@ require_once($formPath);
 
 // Get the session var to take the record from the database
 // which we will populate this form with.
+$inEditingMode = false;
 
 if(isset($_GET['edit'])){
+	$inEditingMode = true;
 	$currentSess = $_GET['edit'];
 } else {
 	$currentSess = $_SESSION['cmanager_session'] ;
@@ -40,18 +42,16 @@ class courserequest_form extends moodleform {
     function definition() {
         global $CFG;
         global $currentSess;
+		global $inEditingMode;
+		
         $currentRecord =  get_record('cmanager_records', 'id', $currentSess);
+		//print_r($currentRecord);
+		$mform =& $this->_form; 
+		$mform->addElement('header', 'mainheader', get_string('modrequestfacility','block_cmanager'));
 
-
-        $mform =& $this->_form; 
- 
-
-        $mform->addElement('header', 'mainheader', get_string('modrequestfacility','block_cmanager'));
-
-      
-	// Page description text
-	$mform->addElement('html', '<p></p>&nbsp;&nbsp;&nbsp;'.get_string('courserequestline1','block_cmanager'));
-	$mform->addElement('html', '<p></p><center><div style="width:800px; text-align:left"><b>'.get_string('formBuilder_step2','block_cmanager').'</b></div></center><p></p>');
+      	// Page description text
+		$mform->addElement('html', '<p></p>&nbsp;&nbsp;&nbsp;'.get_string('courserequestline1','block_cmanager'));
+		$mform->addElement('html', '<p></p><center><div style="width:800px; text-align:left"><b>'.get_string('formBuilder_step2','block_cmanager').'</b></div></center><p></p>');
 
 
 
@@ -72,20 +72,55 @@ class courserequest_form extends moodleform {
 			
 			
 			  $fieldName = 'f' . $fieldnameCounter; // Give each field an incremented fieldname.
-			
+			   
 			   if($field->type == 'textfield'){
 			   	
-				   createTextField($field->lefttext, $mform, $fieldName);
+				  if($inEditingMode == true){
+				  	
+				  		$fname = 'c' . $fieldnameCounter;
+				  		$fieldValue = $currentRecord->$fname;
+				  		createTextField($field->lefttext, $mform, $fieldName, $fieldValue);
+				  } else {
+				   createTextField($field->lefttext, $mform, $fieldName, '');
+				  }
+				  
 			   }
 			   else if($field->type == 'textarea'){
-			  		createTextArea($field->lefttext, $mform, $fieldName);
+				   	if($inEditingMode == true){
+					  	
+					  		$fname = 'c' . $fieldnameCounter;
+					  		$fieldValue = $currentRecord->$fname;
+							createTextArea($field->lefttext, $mform, $fieldName, $fieldValue);
+					} else {
+				  		createTextArea($field->lefttext, $mform, $fieldName, '');
+				  	}
 			   }
 			   else if($field->type == 'dropdown'){
-			   		createDropdown($field->lefttext, $field->id, $mform, $fieldName);
+			   	
+				
+					if($inEditingMode == true){
+					  	
+					  		$fname = 'c' . $fieldnameCounter;
+					  		$selectedFieldValue = $currentRecord->$fname;
+							createDropdown($field->lefttext, $field->id, $mform, $fieldName, $selectedFieldValue);
+							
+					} else  {
+			   			createDropdown($field->lefttext, $field->id, $mform, '');
+					}
 			   }
 			   
 			   else if($field->type == 'radio'){
-			        createRadio($field->lefttext, $field->id, $mform, $fieldName);
+			   
+			  	 	if($inEditingMode == true){
+					  	 $fname = 'c' . $fieldnameCounter;
+					  	 $selectedFieldValue = $currentRecord->$fname;
+						 createRadio($field->lefttext, $field->id, $mform, $fieldName, $selectedFieldValue);
+						
+					} else {
+						 createRadio($field->lefttext, $field->id, $mform, $fieldName, '');
+					}
+			   
+			       
 			   }
 			   
 			   
@@ -175,28 +210,18 @@ class courserequest_form extends moodleform {
     // Tag the module as new  
 	$newrec->req_type = 'New Module Creation';
 	$newrec->status = 'PENDING';
-	
-
 	update_record('cmanager_records', $newrec); 
 
 	echo "<script>window.location='review_request.php?id=$currentSess';</script>";
 	die;
 
-      
-	
-
  
   } else {
           
-   print_header_simple($streditinga='', '',
-
-		    
-		    "<a href=\"module_manager.php\">".get_string('cmanagerDisplay','block_cmanager')."</a> -> ".get_string('modrequestfacility','block_cmanager')."
-		    ", $mform->focus(), "", false);
-	    $mform->set_data($mform);
-	    $mform->display();
-	     
-	        print_footer();
+   print_header_simple($streditinga='', '', "<a href=\"module_manager.php\">".get_string('cmanagerDisplay','block_cmanager')."</a> -> ".get_string('modrequestfacility','block_cmanager')."", $mform->focus(), "", false);
+   $mform->set_data($mform);
+   $mform->display();
+   print_footer();
  
 }
 
@@ -207,33 +232,35 @@ class courserequest_form extends moodleform {
  * 
  * --------------------------------------------------------
  */ 
-function createTextField($leftText, $form, $fieldName){
+function createTextField($leftText, $form, $fieldName, $fieldValue){
 	
-	$form->addElement('text', $fieldName, $leftText, '');
+	$attributes = array();
+	$attributes['value'] = $fieldValue;
+	$form->addElement('text', $fieldName, $leftText, $attributes);
 	$form->addRule($fieldName, '', 'required', null, 'server', false, false);
     
 }
 
 
-function createTextArea($leftText, $form, $fieldName){
-			
-		
-	$form->addElement('textarea', $fieldName, $leftText, 'wrap="virtual" rows="5" cols="60"');
+function createTextArea($leftText, $form, $fieldName, $fieldValue){
+	
+	$attributes = array();
+	$attributes['wrap'] = 'virtual';
+	$attributes['rows'] = '5';
+	$attributes['cols'] = '60';
+				
+	$form->addElement('textarea', $fieldName, $leftText, $attributes);
+	$form->setDefault($fieldName, $fieldValue); 
 	$form->addRule($fieldName, '', 'required', null, 'server', false, false);
     
-	
 }
 
 
-function createRadio($leftText, $id, $form, $fieldName){
-		
-	
-		
+function createRadio($leftText, $id, $form, $fieldName, $selectedValue){
+				
 	 $selectQuery = "fieldid = '$id'";
 	 $field3Items = get_recordset_select('cmanager_formfields_data', $select=$selectQuery, $sort='', $fields='*', 
                               $limitfrom='', $limitnum='');
-	
-	
 	
 	  $counter = 1;									  
 	  foreach($field3Items as $item){
@@ -255,21 +282,18 @@ function createRadio($leftText, $id, $form, $fieldName){
 		}
 		
 	  } 
-			
+		
 	
-	
-	
-	
+	$form->setDefault($fieldName, $selectedValue);
+		
 	
 }
 
-function createDropdown($leftText, $id, $form, $fieldName){
+function createDropdown($leftText, $id, $form, $fieldName, $selectedValue){
 	
 	
-		  $options = array();
+	 $options = array();
 	    
-	    
-	      		
 	 $selectQuery = "fieldid = '$id'";
 	 $field3Items = get_recordset_select('cmanager_formfields_data', $select=$selectQuery, $sort='', $fields='*', 
                               $limitfrom='', $limitnum='');
@@ -282,13 +306,14 @@ function createDropdown($leftText, $id, $form, $fieldName){
 		  }
 		  
 		$form->addElement('select', $fieldName, $leftText , $options);
-		$form->addRule($fieldName, get_string('request_pleaseSelect','block_cmanager'), 'required', null, 'server', false, false);
+		
+		$form->setDefault($fieldName, $selectedValue);
+		
+		//$form->addRule($fieldName, get_string('request_pleaseSelect','block_cmanager'), 'required', null, 'server', false, false);
 	
 	
 }
  
-
-
 
 ?>
 

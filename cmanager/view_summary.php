@@ -12,20 +12,15 @@ require_once("../../config.php");
 global $CFG;
 $formPath = "$CFG->libdir/formslib.php";
 require_once($formPath);
-  require_login();
-  
-  require_once('generate_summary.php');
+require_login();
+require_once('generate_summary.php');
 ?>
-
+<title>Course Manager</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <SCRIPT LANGUAGE="JavaScript" SRC="http://code.jquery.com/jquery-1.6.min.js">
 </SCRIPT>
 <?php
 
-/* -------------------------*/
-//ini_set('display_errors', 1); 
-//error_reporting(E_ALL);
-/* -------------------------*/
 
 
 
@@ -170,7 +165,7 @@ class courserequest_form extends moodleform {
 
 		<tr>
 			<td width="150px">
-				<b>'.$page1_fieldname1.'</b>
+				<b>'.$page1_fieldname1.':</b>
 			</td>
 			<td>
 				'. 		$page1_fieldname1 . '
@@ -178,7 +173,7 @@ class courserequest_form extends moodleform {
 		</tr>
 		<tr>
 			<td width="150px">
-				<b>'.$page1_fieldname2.'</b>
+				<b>'.$page1_fieldname2.':</b>
 			</td>
 			<td>
 				'. 		$page1_fieldname2 . '

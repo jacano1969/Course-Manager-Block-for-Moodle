@@ -276,7 +276,7 @@ insert_record('cmanager_config', $newrec);
 
 $newrec = new stdClass();
 $newrec->varname = 'page1_fielddesc4';
-$newrec->value = 'A self enrolment password.If you put something here, then students who are trying to get in for the FIRST TIME ONLY will be asked to supply this word or phrase.';
+$newrec->value = 'Students who are trying to get in for the FIRST TIME ONLY will be asked to supply this word or phrase.';
 insert_record('cmanager_config', $newrec);
 
 

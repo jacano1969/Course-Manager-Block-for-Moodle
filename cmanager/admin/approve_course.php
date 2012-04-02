@@ -16,7 +16,7 @@ require_once('../validate_admin.php');
 require_once('../generate_summary.php');
 
 ?>
-
+<title>Course Manager</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <SCRIPT LANGUAGE="JavaScript" SRC="http://code.jquery.com/jquery-1.6.min.js">
 </SCRIPT>
@@ -156,7 +156,7 @@ class courserequest_form extends moodleform {
 
 		<tr>
 			<td width="150px">
-				<b>' . $page1_fieldname1. '</b>
+				<b>' . $page1_fieldname1. ':</b>
 			</td>
 			<td>
 				'. $rec->modcode . '
@@ -164,7 +164,7 @@ class courserequest_form extends moodleform {
 		</tr>
 		<tr>
 			<td width="150px">
-				<b> ' . $page1_fieldname2 . '</b>
+				<b> ' . $page1_fieldname2 . ':</b>
 			</td>
 			<td>
 				'. $rec->modname . '
@@ -178,7 +178,7 @@ class courserequest_form extends moodleform {
 			$outputHTML .= '
 					<tr>
 					<td width="150px">
-						<b> ' . get_string('configure_EnrolmentKey','block_cmanager'). ' </b>
+						<b> ' . get_string('configure_EnrolmentKey','block_cmanager'). ': </b>
 					</td>
 					<td>
 						'. $rec->modkey . '

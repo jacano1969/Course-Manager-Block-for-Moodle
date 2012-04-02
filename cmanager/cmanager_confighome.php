@@ -1,3 +1,4 @@
+<title>Course Manager</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <?php
 //ini_set('display_errors', 1); 
@@ -17,7 +18,7 @@ class courserequest_form extends moodleform {
 		$mform->addElement('header', 'mainheader', get_string('configurecoursemanagersettings','block_cmanager'));
 		
 		$mainSlider = "<div style=\"text-indent: -2em; padding-left: 2em;\">
-		<br>
+		<p></p>
 		<a href=\"cmanager_config.php\">".get_string('configurecoursemanagersettings','block_cmanager')."</a><br>".get_string('configure_instruction1','block_cmanager')."<p></p><br>	
 		<p></p>
 		<a href=\"formeditor/page1.php\">".get_string('configurecourseformfields','block_cmanager')."</a><br>".get_string('configure_instruction2','block_cmanager')."<p></p><br>

@@ -1,3 +1,4 @@
+<title>Course Manager</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
@@ -50,7 +51,6 @@ require_once($formPath);
 if(isset($_GET['del'])){
 	$delId = $_GET['del'];
     delete_records_select('cmanager_config', "id = $delId"); 
-	
 	echo " <script>window.location = 'form_builder.php';</script> ";
 }
 ?>
@@ -63,15 +63,16 @@ if(isset($_GET['del'])){
 		var value = document.getElementById('newformname').value;
       
        
-       
-        $.ajaxSetup({async:false});
-        $.post("ajax_functions.php", { type: 'addnewform', value: value},
-   				function(data) {
-		     		
-		          
-			   });
+       if(value != ''){
+	        $.ajaxSetup({async:false});
+	        $.post("ajax_functions.php", { type: 'addnewform', value: value},
+	   				function(data) {
+			     		
+			          
+				   });
 			   
 			   window.location = 'form_builder.php';
+	    }
 	}
 	
 </script>
@@ -134,7 +135,7 @@ class courserequest_form extends moodleform {
 	foreach($formRecords as $rec){
 		$formsItemsHTML .= '<tr>';
 		$formsItemsHTML .= '<td><a title="'.get_string('formBuilder_editForm','block_cmanager').'" href="page2.php?id=' . $rec['id'] . '&name='.$rec['value'].'">' . $rec['value']. '</></td>';
-		$formsItemsHTML .= '<td><a title="'.get_string('formBuilder_deleteForm','block_cmanager').'" href=""><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" / onclick="javascript:deleteSelectedForm(\''.get_string('formBuilder_confirmDelete','block_cmanager').'\',' . $rec['id'] . ');"></a></td>';
+		$formsItemsHTML .= '<td><a title="'.get_string('formBuilder_deleteForm','block_cmanager').'" href="form_builder.php?del='. $rec['id'].'"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" / onclick="javascript:deleteSelectedForm(\''.get_string('formBuilder_confirmDelete','block_cmanager').'\',' . $rec['id'] . ');"></a></td>';
 		$formsItemsHTML .= '<td><a title="'.get_string('formBuilder_previewForm','block_cmanager').'" href="preview.php?id=' . $rec['id'] . '"><img src="../images/preview.png" width="20" height="20" alt="delete"></a></td>';
 		$formsItemsHTML .= '</tr>';
 	}
@@ -155,20 +156,12 @@ class courserequest_form extends moodleform {
 
 
 $mform = new courserequest_form();//name of the form you defined in file above.
-//default 'action' for form is strip_querystring(qualified_me())
-if ($mform->is_cancelled()){
-    //you need this section if you have a cancel button on your form
-    //here you tell php what to do if your user presses cancel
-    //probably a redirect is called for!
-    // PLEASE NOTE: is_cancelled() should be called before get_data(), as this may return true
-} else if ($fromform=$mform->get_data()){
-//this branch is where you process validated data.
- print_header_simple($streditinga, '',
 
-		    
-		    "<a href=\"../cmanager_admin.php\">".get_string('cmanagerDisplay','block_cmanager')."</a> ->".get_string('formBuilder_name','block_cmanager')."
-		     $strnav $streditinga", $mform->focus(), "", false);
-		    
+if ($mform->is_cancelled()){
+    
+} else if ($fromform=$mform->get_data()){
+
+			print_header_simple($streditinga, '',"<a href=\"../cmanager_admin.php\">".get_string('cmanagerDisplay','block_cmanager')."</a> ->".get_string('formBuilder_name','block_cmanager')." $strnav $streditinga", $mform->focus(), "", false);
 		    $mform->set_data($toform);
 		    $mform->display();
 		    print_footer();

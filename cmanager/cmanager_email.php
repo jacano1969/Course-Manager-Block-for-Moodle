@@ -35,13 +35,15 @@ function convertTagsToValues($email, $replaceValues){
 	$course_name_added = str_replace('[course_name]', $replaceValues['[course_name]'], $course_code_added);
 	
     // Enrolment key: [e_key]
-	$enroll_key_added = str_replace('[e_key]',  $replaceValues['[e_key]'], $prog_name_added);
+	$enroll_key_added = str_replace('[e_key]',  $replaceValues['[e_key]'], $course_name_added);
 	
     // Full URL to module: [full_link]
 	$full_url_added = 	str_replace('[full_link]',  $replaceValues['[full_link]'], $enroll_key_added);
 	
+	$req_link_added = str_replace('[req_link]',  $replaceValues['[req_link]'], $full_url_added);
+	
     // Location in catalog: [loc]
-	$location_added = str_replace('[loc]',  $replaceValues['[loc]'], $full_url_added);
+	$location_added = str_replace('[loc]',  $replaceValues['[loc]'], $req_link_added);
 	
 	
 	$new_email = $location_added;
@@ -173,7 +175,7 @@ function request_new_mod_email_admins($current_mod_info){
 	
 		                               
 		$messagetext = convertTagsToValues($admin_email->value, $current_mod_info);
-	
+	 
 		
 		// Send an email to each admin		                               
 		 foreach($modRecords as $rec){			                               

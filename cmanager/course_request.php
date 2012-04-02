@@ -5,13 +5,13 @@
 
      COURSE REQUEST BLOCK FOR MOODLE  
 
-     2011 Kyle Goslin
+     2012 Kyle Goslin & Daniel McSweeney
 
 
 
  --------------------------------------------------------- */
 ?>
-
+<title>Course Manager</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <SCRIPT LANGUAGE="JavaScript" SRC="http://code.jquery.com/jquery-1.6.min.js">
 </SCRIPT>
@@ -22,12 +22,13 @@
 	$formPath = "$CFG->libdir/formslib.php";
 	require_once($formPath);
 
-  require_login();
+	
+require_login();
 
 
 // Main variable for storing the current session id.
 $currentSess = '00';
-
+$inEditingMode = false;
 
 global $USER;
 
@@ -48,11 +49,11 @@ if(isset($_GET['new'])){
 	}		
 } 
 else if (isset($_GET['edit'])){ // If we are editing the mod
-
+	$inEditingMode = true;
 	$_SESSION['cmanager_session'] = $_GET['edit'];
 	$currentSess = $_GET['edit'];
     $_SESSION['cmanagermode'] = 'admin';
-} else { // If we have alreadt stated a session
+} else { // If we have already stated a session
 
 	$currentSess = $_SESSION['cmanager_session'];
 }
@@ -68,11 +69,8 @@ class courserequest_form extends moodleform {
 	    global $CFG;
         global $currentSess;
         $currentRecord =  get_record('cmanager_records', 'id', $currentSess);
-
-
-        $mform =& $this->_form; // Don't forget the underscore! 
- 
-		$mform->addElement('html', '<style>
+		$mform =& $this->_form; // Don't forget the underscore! 
+ 		$mform->addElement('html', '<style>
 		#content {
 		
 		left:200px;
@@ -84,7 +82,8 @@ class courserequest_form extends moodleform {
 
 	$mform->addElement('header', 'mainheader', get_string('modrequestfacility','block_cmanager'));
   
-  
+    
+   
 	// Get the field values
 	$field1title = get_field_select('cmanager_config', 'value', "varname = 'page1_fieldname1'");
 	$field1desc = get_field_select('cmanager_config', 'value', "varname = 'page1_fielddesc1'");
@@ -98,17 +97,12 @@ class courserequest_form extends moodleform {
 	//get field 3 status
 	$field3status = get_field_select('cmanager_config', 'value', "varname = 'page1_field3status'");
   
-	
-	//get the value for autokey - the config variable that determines enrolment key auto or prompt
+  	//get the value for autokey - the config variable that determines enrolment key auto or prompt
 	$autoKey = get_field_select('cmanager_config', 'value', "varname = 'autoKey'");
 			
-		
-		
 
 	// Page description text
 	$mform->addElement('html', '<p></p>&nbsp;&nbsp;&nbsp;'.get_string('courserequestline1','block_cmanager'));
-
-
 	$mform->addElement('html', '<p></p><center><div style="width:745px; text-align:left"><b>' . get_string('step1text','block_cmanager'). '</b></div></center><p></p><br>');
 
 
@@ -162,8 +156,15 @@ class courserequest_form extends moodleform {
 	$mform->addRule('enrolkey', get_string('request_rule3','block_cmanager'), 'required', null, 'server', false, false);
     $mform->addElement('html', '<p></p><div style="left:512px; position:relative; font-size: 0.8em; color: #888; position:absolute;">' . $field4desc. '</div><p></p><br>');
 	 
-	 }
-
+	
+	
+	}
+ 
+	// Hidden form element to pass the key
+	global $inEditingMode;
+	if($inEditingMode){
+		$mform->addElement('hidden', 'editingmode', $currentSess); 
+	}
 
 	$buttonarray=array();
 	$buttonarray[] = &$mform->createElement('submit', 'submitbutton', get_string('Continue','block_cmanager'));
@@ -207,10 +208,7 @@ $mform = new courserequest_form();//name of the form you defined in file above.
 
 
 	// Find which records are similar to the one which we are currently looking for.
-	
-	   
 	$spaceCheck =  substr($postCode, 0, 4) . ' ' . substr($postCode, 4, strlen($postCode));
-	
 	$selectQuery = "shortname LIKE '%$postCode%' 					
 				    OR (shortname LIKE '%$spaceCheck%' AND shortname LIKE '%$postMode%')
 					OR shortname LIKE '%$spaceCheck%'
@@ -220,11 +218,18 @@ $mform = new courserequest_form();//name of the form you defined in file above.
 	
 
 	if($recordsExist){
+			
 		echo "<script>window.location='course_exists.php';</script>";
-	   	die;
+	    die;
 	} else {
-	     echo "<script>window.location='course_new.php';</script>";
-	     die;
+		 if(isset($_POST['editingmode'])){
+		 	$editSessId = addslashes($_POST['editingmode']);
+		 	echo "<script>window.location='course_new.php?edit=$editSessId';</script>";
+	     	die;
+		 } else {
+	     	echo "<script>window.location='course_new.php';</script>";
+	     	die;
+		 }
 	}
 
 
@@ -232,18 +237,10 @@ $mform = new courserequest_form();//name of the form you defined in file above.
 
   } else {
         
-
-
-  
-   print_header_simple($streditinga='', '',
-
-		    
-		    "<a href=\"module_manager.php\">".get_string('cmanagerDisplay','block_cmanager')."</a> -> ".get_string('modrequestfacility','block_cmanager')."
-		    ", $mform->focus(), "", false);
-	    $mform->set_data($mform);
-	    $mform->display();
-	    
-	        print_footer();
+	print_header_simple($streditinga='', '', "<a href=\"module_manager.php\">".get_string('cmanagerDisplay','block_cmanager')."</a> -> ".get_string('modrequestfacility','block_cmanager')."", $mform->focus(), "", false);
+	$mform->set_data($mform);
+	$mform->display();
+	print_footer();
 	  
  
 }

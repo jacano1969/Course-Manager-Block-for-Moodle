@@ -14,7 +14,7 @@ $formPath = "$CFG->libdir/formslib.php";
 require_once($formPath);
 
 ?>
-
+<title>Course Manager</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <SCRIPT LANGUAGE="JavaScript" SRC="http://code.jquery.com/jquery-1.6.min.js">
 </SCRIPT>

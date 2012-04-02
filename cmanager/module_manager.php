@@ -17,12 +17,9 @@ function cancelConfirm(id,langString) {
 }
 //-->
 </script>
-
+<title>Course Manager</title>
 
 <?php
-//ini_set('display_errors', 1); 
-//error_reporting(E_ALL);
-
 
 require_once("../../config.php");
 global $CFG;
@@ -191,7 +188,7 @@ class courserequest_form extends moodleform {
 		
 				<tr>
 					<td width="150px">
-						<b>' . $page1_fieldname1 . '</b>
+						<b>' . $page1_fieldname1 . ':</b>
 					</td>
 					<td>
 						'. $rec['modcode'] . '
@@ -199,7 +196,7 @@ class courserequest_form extends moodleform {
 				</tr>
 				<tr>
 					<td width="150px">
-						<b> '. $page1_fieldname2 .' </b>
+						<b> '. $page1_fieldname2 .':</b>
 					</td>
 					<td>
 						'. $rec['modname'] . '
@@ -212,7 +209,7 @@ class courserequest_form extends moodleform {
 			$outputHTML .= '
 					<tr>
 					<td width="150px">
-						<b> '. $page1_fieldname4 .' </b>
+						<b> '. $page1_fieldname4 .':</b>
 					</td>
 					<td>
 						'. $rec['modkey'] . '

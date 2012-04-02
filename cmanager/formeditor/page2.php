@@ -26,6 +26,7 @@ echo '<script>
        var formId = '.$formId .';
 	   var formName = \''.$formName.'\';
        var movedownEnabled = 1;
+	   var numberOfFields = 0;
       </script>';
 
 // Deleting dropdown menus
@@ -275,7 +276,7 @@ if(isset($_GET['down'])){
 			var ni = document.getElementById('formdiv');
 			var newdiv = document.createElement('div');
 			//newdiv.style.backgroundColor = "gray";
-			newdiv.style.borderWidth = 1;
+			newdiv.style.borderWidth = 1; 
 			newdiv.style.borderStyle = 'dotted';
 	
 			newdiv.style.width = 400;
@@ -287,19 +288,22 @@ if(isset($_GET['down'])){
 	        newdiv.setAttribute('id',num);
 	        ni.appendChild(newdiv);
 	   	   
-	   	   	if(num == 1){
-		     		newdiv.innerHTML = '<b>'+textFieldTxt+':</b> <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" />  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+	   	    if(numberOfFields == 1){
+	   	    		newdiv.innerHTML = '<b>'+textFieldTxt+':</b> <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" /> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" />  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+				       	
+	   	    } else {
+	   	   
+				   	   	if(num == 1){
+				   	   		newdiv.innerHTML = '<b>'+textFieldTxt+':</b> <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" />  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+				       	} 
+						else if(movedownEnabled == 0){
+							 newdiv.innerHTML = '<b>'+textFieldTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a>   <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" />   <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+				       	}	       			    		
+					    else {
+					    	 newdiv.innerHTML = '<b>'+textFieldTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a>  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a><a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+				       	}
 	       			
-		     		} 
-			else if(movedownEnabled == 0){
-					newdiv.innerHTML = '<b>'+textFieldTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a>   <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" />   <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
-	       		
-			}	       			    		
-		    else {
-	       	 			newdiv.innerHTML = '<b>'+textFieldTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a>  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a><a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
-	       			
-	       			}
-	       			
+	       		}
 	       			num++;
 	}
 	
@@ -391,18 +395,23 @@ if(isset($_GET['down'])){
 	        newdiv.setAttribute('id',num);
 	        ni.appendChild(newdiv);
 	   	   
-	   	   	if(num == 1){
-		     		 newdiv.innerHTML = '<b>'+textAreaTxt+':</b> <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up"/>  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a><p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+ uniqueId+ '" value = "' + leftText+ '" size="30" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
-	       			} 
-	       	else if(movedownEnabled == 0){
-	       	 		newdiv.innerHTML = '<b>'+textAreaTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" /> <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
-	       	
-	       	}		
-	       	else {
-	       	 			newdiv.innerHTML = '<b>'+textAreaTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a> <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
-	       			
-	       			}
-	       			
+	   	   
+	   	   if(numberOfFields == 1){
+	   	    		newdiv.innerHTML = '<b>'+textAreaTxt+':</b> <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" /> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" />  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+				       	
+	   	    } else {
+					   	   	if(num == 1){
+						     		 newdiv.innerHTML = '<b>'+textAreaTxt+':</b> <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up"/>  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a><p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+ uniqueId+ '" value = "' + leftText+ '" size="30" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+					       			} 
+					       	else if(movedownEnabled == 0){
+					       	 		newdiv.innerHTML = '<b>'+textAreaTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" /> <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+					       	
+					       	}		
+					       	else {
+					       	 			newdiv.innerHTML = '<b>'+textAreaTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a> <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+					       			
+					       			}
+	       		}
 	       			num++;
 	}
 	
@@ -485,17 +494,23 @@ if(isset($_GET['down'])){
 	        newdiv.setAttribute('id',num);
 	        ni.appendChild(newdiv);
 	   	   
-	   	   	if(num == 1){
-       					newdiv.innerHTML = '<b>'+dropdownTxt+':</b><img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" /><a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a> <a href="page2.php?id=' + formId + '&t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
-	       	}
-	       	else if(movedownEnabled == 0){
-	       		newdiv.innerHTML = '<b>'+dropdownTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" /> <a href="page2.php?id=' + formId + '&t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
-	       			
-	       	} else {
-	       	 			newdiv.innerHTML = '<b>'+dropdownTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a>  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
-	       			
-	       			}
-	       			 		
+	   	   
+	   	   if(numberOfFields == 1){
+	   	    		newdiv.innerHTML = '<b>'+dropdownTxt+':</b> <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" /> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" />  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+				       	
+	   	    } else {
+	   	   
+					   	   	if(num == 1){
+				       					newdiv.innerHTML = '<b>'+dropdownTxt+':</b><img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" /><a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a> <a href="page2.php?id=' + formId + '&t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
+					       	}
+					       	else if(movedownEnabled == 0){
+					       		newdiv.innerHTML = '<b>'+dropdownTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" /> <a href="page2.php?id=' + formId + '&t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
+					       			
+					       	} else {
+					       	 			newdiv.innerHTML = '<b>'+dropdownTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a>  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
+					       			
+					       			}
+	       			} 		
 		   });
 			
 	       			num++;
@@ -579,19 +594,24 @@ if(isset($_GET['down'])){
 	        newdiv.setAttribute('id',num);
 	        ni.appendChild(newdiv);
 	   	   
-	   	   	if(num == 1){		
-					newdiv.innerHTML = '<b>'+radioTxt+':</b>  <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" /> <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a><p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;	
-					
+	   	   
+	   	   if(numberOfFields == 1){
+	   	    		newdiv.innerHTML = '<b>'+radioTxt+':</b> <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" /> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" />  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/>';
+				       	
+	   	    } else {
+					   	   	if(num == 1){		
+									newdiv.innerHTML = '<b>'+radioTxt+':</b>  <img src="../images/move_up_dis.gif" width="20" height="20" alt="move up" /> <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a><p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;	
 									
-					}
-	       	else if(movedownEnabled == 0){
-	       				newdiv.innerHTML = '<b>'+radioTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" /> <a href="page2.php?id=' + formId + '&t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
-	       		
-	       	} else {
-	       	 			newdiv.innerHTML = '<b>'+radioTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a>  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
-	       			
-	       			}
-	       			 		
+													
+									}
+					       	else if(movedownEnabled == 0){
+					       				newdiv.innerHTML = '<b>'+radioTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a> <img src="../images/move_down_dis.gif" width="20" height="20" alt="move down" /> <a href="page2.php?id=' + formId + '&t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
+					       		
+					       	} else {
+					       	 			newdiv.innerHTML = '<b>'+radioTxt+':</b> <a href="page2.php?id=' + formId + '&up=' + uniqueId + '"><img src="../images/move_up.gif" width="20" height="20" alt="move up" /></a>  <a href="page2.php?id=' + formId + '&down=' + uniqueId + '"><img src="../images/move_down.gif" width="20" height="20" alt="move down" /></a>  <a href="page2.php?id=' + formId + '&t=drop&del=' + uniqueId + '"><img src="../images/deleteIcon.png" width="20" height="20" alt="delete" /></a> <p></p><table><tr><td>'+leftTxt+':</td><td><input type="text" id = "'+uniqueId +'" size="30" value="' + leftText+ '" onfocus="enableSave(\''+uniqueId+'_savebtn\');"></input></td></tr></table><input type="button" value="'+saveTxt+'" disabled="disabled" id="'+uniqueId+'_savebtn" onclick="saveFieldValue(' + uniqueId+')"/><p></p> <input type="text" id="newitem'+uniqueId +'"></input><input type="button" name="submitbutton" value="'+addItemBtnTxt+'" onclick="addNewItem('+ uniqueId +');"><p></p>'+addedItemsTxt+':<p></p>' + fieldsInHTML;
+					       			
+					       			}
+	       			} 		
 		   });
 			
 	       			num++;
@@ -743,7 +763,7 @@ if ($mform->is_cancelled()){
 	
 		// Count the total number of records
 		$numberOfFields = count_records('cmanager_formfields', 'formid', $formId);
-	  
+		echo '<script>numberOfFields = '.$numberOfFields.';</script>';
 							  
 	    $formFields = get_records('cmanager_formfields', 'formid', $formId, $sort='position ASC', $fields='*', $limitfrom='', $limitnum='');
 		
@@ -752,7 +772,7 @@ if ($mform->is_cancelled()){
 		foreach($formFields as $field){
 			   	
 			   // If we are on the last record, disable the move down option.
-			   if($numberOfFields == $recCounter){
+			   if($numberOfFields == $recCounter || $numberOfFields == 1){
 			   	 
 				    echo '<script>movedownEnabled = 0;</script>';
 			   	
